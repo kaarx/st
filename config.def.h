@@ -155,6 +155,16 @@ static unsigned int defaultattr = 11;
  */
 static uint forcemousemod = ShiftMask;
 
+/* 
+ * Define how many lines to scroll up or down for mouse wheel and up/down keys.
+ */
+static const unsigned int mousescrollincrement = 2;
+static const unsigned int keyscrollincrement = 5;
+
+/* Internal keyboard shortcuts. */
+#define MODKEY Mod1Mask
+#define TERMMOD (ControlMask|ShiftMask)
+
 /*
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
@@ -163,13 +173,14 @@ static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ XK_ANY_MOD,           Button3, clippaste,      {.i = 0},      1 },
+	{ TERMMOD,              Button4, zoom,           {.f = +1} },
+	{ TERMMOD,              Button5, zoom,           {.f = -1} },
+	{ ControlMask,          Button4, kscrollup,      {.i = mousescrollincrement} },
+	{ ControlMask,          Button5, kscrolldown,    {.i = mousescrollincrement} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
-/* Internal keyboard shortcuts. */
-#define MODKEY Mod1Mask
-#define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
@@ -177,18 +188,18 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+	{ TERMMOD,              XK_Up,          zoom,           {.f = +1} },
+	{ TERMMOD,              XK_Down,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ ShiftMask,            XK_Up,          kscrollup,      {.i =  5} },
-	{ ShiftMask,            XK_Down,        kscrolldown,    {.i =  5} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ ControlMask,          XK_Up,          kscrollup,      {.i =  keyscrollincrement} },
+	{ ControlMask,          XK_Down,        kscrolldown,    {.i =  keyscrollincrement} },
+	{ ControlMask,          XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ControlMask,          XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
