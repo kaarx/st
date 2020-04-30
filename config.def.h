@@ -5,8 +5,9 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Hack Nerd Font:size=14:antialias=true:autohint=true";
-static int borderpx = 2;
+//static char *font = "Hack Nerd Font:size=14:antialias=true:autohint=true";
+static char *font = "Fira Code Retina:size=14:antialias=true:autohint=true";
+static int borderpx = 2; 
 
 /*
  * What program is execed by st depends of these precedence rules:
